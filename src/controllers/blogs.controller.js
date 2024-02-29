@@ -1,4 +1,3 @@
-// Importa la función getConnection desde el archivo connection.js y la biblioteca mssql
 import { getConnection } from "../database/connection.js";
 import sql from "mssql";
 import {
@@ -6,9 +5,7 @@ import {
   getBlogByIdQuery,
   saveBlogQuery,
 } from "../database/querys.js";
-// Define un objeto que contiene funciones relacionadas con las operaciones en la tabla blogs
 export default {
-  // Obtiene todos los blogs con una vista previa del contenido
   getBlogs: async (req, res, next) => {
     try {
       // Obtiene una conexión al pool de la base de datos
