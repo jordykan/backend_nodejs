@@ -1,5 +1,7 @@
 CREATE  DATABASE blog
+
 USE blog;
+
 CREATE TABLE blogs
 (
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -95,6 +97,9 @@ VALUES
 SELECT titulo, autor, contenido
 from blogs
 WHERE titulo LIKE '%%' OR autor LIKE '%%'
+
+SELECT *
+FROM blogs
 
 SELECT COUNT(*) as TOTAL
 FROM blogs

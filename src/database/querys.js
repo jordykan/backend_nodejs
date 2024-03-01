@@ -1,5 +1,5 @@
 export const getBlogsQuery = `
-  SELECT id,autor, titulo, LEFT(contenido, 4) as contenido_corto 
+  SELECT id,autor, titulo, LEFT(contenido, 70) as contenido,  fecha_publicacion
   FROM blogs 
   WHERE titulo LIKE '%' + @filtro + '%' OR autor LIKE '%'+ @filtro+ '%' OR contenido LIKE '%'+ @filtro+ '%' 
   ORDER BY id
@@ -8,6 +8,12 @@ export const getBlogsQuery = `
   `;
 
 export const getBlogByIdQuery =
-  "SELECT id, contenido FROM blogs where id = @id";
+  "SELECT id, titulo, contenido FROM blogs where id = @id";
 export const saveBlogQuery =
   "INSERT INTO blogs (titulo, autor, contenido) values (@titulo, @autor, @contenido)";
+
+export const getTotalBlogQuery = `
+  SELECT COUNT(*) as total
+  FROM blogs 
+  WHERE titulo LIKE '%' + @filtro + '%' OR autor LIKE '%'+ @filtro+ '%' OR contenido LIKE '%'+ @filtro+ '%' 
+  `;

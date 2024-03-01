@@ -4,6 +4,7 @@ import {
   getBlogsQuery,
   getBlogByIdQuery,
   saveBlogQuery,
+  getTotalBlogQuery,
 } from "../database/querys.js";
 export default {
   getBlogs: async (req, res, next) => {
@@ -11,7 +12,7 @@ export default {
       // Obtiene una conexión al pool de la base de datos
       const pool = await getConnection();
       const { filtro, pagina = 1 } = req.query;
-      const paginaSize = 5;
+      const paginaSize = 9;
       const query = getBlogsQuery;
 
       // Calcular el offset para la paginación
@@ -26,12 +27,15 @@ export default {
       // Obtener el total de registros en la tabla de blogs
       const total_registros = await pool
         .request()
-        .query("SELECT COUNT(*) AS total FROM blogs");
+        .input("filtro", sql.NVarChar, filtro)
+        .query(getTotalBlogQuery);
 
       // Calcular el total de páginas
       const total_paginas = Math.ceil(
         total_registros.recordset[0].total / paginaSize
       );
+
+      console.log(total_registros);
 
       const result = {
         data: reg.recordset,
